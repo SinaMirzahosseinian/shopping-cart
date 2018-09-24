@@ -1,38 +1,23 @@
 import React, { Component } from "react";
-import "./App.css";
+import Counter from "./components/counters";
 
 class App extends Component {
   state = {
-    count: 0
-  };
-
-  handleIncrement = () => {
-    this.setState({ count: this.state.count + 1 });
+    counter: [
+      { id: 1, value: 4 },
+      { id: 2, value: 7 },
+      { id: 3, value: 0 },
+      { id: 4, value: 3 }
+    ]
   };
   render() {
     return (
-      <React.Fragment>
-        <div className="">
-          <span className={this.getBadgeClsses()}>{this.formatCount()}</span>
-          <button
-            onClick={this.handleIncrement}
-            className="btn btn-secondary btn-sm"
-          >
-            Increment
-          </button>
-        </div>
-      </React.Fragment>
+      <main>
+        {this.state.counter.map(c => (
+          <Counter key={c.id} value={c.value} />
+        ))}
+      </main>
     );
-  }
-  getBadgeClsses() {
-    let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
-    return classes;
-  }
-
-  formatCount() {
-    const { count } = this.state;
-    return count === 0 ? "zero" : count;
   }
 }
 
