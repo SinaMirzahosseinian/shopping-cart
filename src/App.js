@@ -10,11 +10,20 @@ class App extends Component {
       { id: 4, value: 3 }
     ]
   };
+  handleDelete = counterId => {
+    const counter = this.state.counter.filter(c => c.id !== counterId);
+    this.setState({ counter });
+  };
   render() {
     return (
       <main>
         {this.state.counter.map(c => (
-          <Counter key={c.id} value={c.value} />
+          <Counter
+            id={c.id}
+            key={c.id}
+            value={c.value}
+            onDelete={this.handleDelete}
+          />
         ))}
       </main>
     );
