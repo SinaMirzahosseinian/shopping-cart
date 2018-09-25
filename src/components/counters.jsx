@@ -1,44 +1,28 @@
 import React, { Component } from "react";
+import Counter from "./counter";
 
-class Counter extends Component {
-  state = {
-    count: this.props.value
-  };
-
-  handleIncrement = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+class Counters extends Component {
   render() {
     return (
-      <React.Fragment>
-        <div className="">
-          <span className={this.getBadgeClsses()}>{this.formatCount()}</span>
-          <button
-            onClick={() => this.handleIncrement()}
-            className="btn btn-secondary btn-sm"
-          >
-            Increment
-          </button>
-          <button
-            onClick={() => this.props.onDelete(this.props.id)}
-            className="btn btn-danger btn-sm m-2"
-          >
-            Delete
-          </button>
-        </div>
-      </React.Fragment>
+      <div>
+        <button
+          onClick={this.props.onReset}
+          className="btn btn-primary btn-sm m-2"
+        >
+          Reset
+        </button>
+        {this.props.counters.map(counter => (
+          <Counter
+            key={counter.id}
+            onDelete={this.props.onDelete}
+            onIncrement={this.props.onIncrement}
+            onDecrement={this.props.onDecrement}
+            counter={counter}
+          />
+        ))}
+      </div>
     );
-  }
-  getBadgeClsses() {
-    let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
-    return classes;
-  }
-
-  formatCount() {
-    const { count } = this.state;
-    return count === 0 ? "zero" : count;
   }
 }
 
-export default Counter;
+export default Counters;
